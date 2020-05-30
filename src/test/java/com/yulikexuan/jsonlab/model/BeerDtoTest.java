@@ -8,7 +8,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 @DisplayName("BeerDto JSON Processing Test - ")
@@ -23,10 +24,13 @@ class BeerDtoTest extends BaseTest {
         // When
         String jsonBeer = this.objectMapper.writeValueAsString(beerDto);
         JSONObject jsonObj = new JSONObject(jsonBeer);
+        String id = jsonObj.getString("beerId");
+        String price = jsonObj.getString("price");
 
         // Then
         System.out.println(jsonBeer);
-        JSONAssert.assertEquals(this.expectedBeerId, jsonObj, false);
+        assertThat(id).isEqualTo(this.id.toString());
+        assertThat(price).isEqualTo(beerDto.getPrice().toString());
     }
 
     @Test

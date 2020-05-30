@@ -33,13 +33,11 @@ public class BaseTest {
     ObjectMapper objectMapper;
 
     UUID id;
-
-    String expectedBeerId;
+    BigDecimal price = BigDecimal.valueOf(12.99);
 
     @BeforeEach
     void setUp() {
         this.id = UUID.randomUUID();
-        expectedBeerId = String.format("{beerId:%s}", this.id);
     }
 
     BeerDto getBeerDto() {
@@ -49,7 +47,7 @@ public class BaseTest {
                 .id(this.id)
                 .createdDate(OffsetDateTime.now())
                 .lastUpdatedDate(OffsetDateTime.now())
-                .price(new BigDecimal("12.99"))
+                .price(price)
                 .upc(123123123123L)
                 .build();
     }

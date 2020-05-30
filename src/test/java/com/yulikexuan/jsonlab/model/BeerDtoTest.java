@@ -5,25 +5,28 @@ package com.yulikexuan.jsonlab.model;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 
 @DisplayName("BeerDto JSON Processing Test - ")
 class BeerDtoTest extends BaseTest {
 
     @Test
-    void test_Given_BeerDto_Then_Serialize_To_JSON() throws JsonProcessingException {
+    void test_Given_BeerDto_Then_Serialize_To_JSON() throws Exception {
 
         // Given
         BeerDto beerDto = this.getBeerDto();
 
         // When
         String jsonBeer = this.objectMapper.writeValueAsString(beerDto);
+        JSONObject jsonObj = new JSONObject(jsonBeer);
 
         // Then
         System.out.println(jsonBeer);
-
+        JSONAssert.assertEquals(this.expectedBeerId, jsonObj, false);
     }
 
     @Test

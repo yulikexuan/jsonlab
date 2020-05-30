@@ -5,6 +5,7 @@ package com.yulikexuan.jsonlab.model;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,21 @@ public class BaseTest {
     @Autowired
     ObjectMapper objectMapper;
 
+    UUID id;
+
+    String expectedBeerId;
+
+    @BeforeEach
+    void setUp() {
+        this.id = UUID.randomUUID();
+        expectedBeerId = String.format("{beerId:%s}", this.id);
+    }
+
     BeerDto getBeerDto() {
         return  BeerDto.builder()
                 .beerName("Heineken")
                 .beerStyle("Ale")
-                .id(UUID.randomUUID())
+                .id(this.id)
                 .createdDate(OffsetDateTime.now())
                 .lastUpdatedDate(OffsetDateTime.now())
                 .price(new BigDecimal("12.99"))

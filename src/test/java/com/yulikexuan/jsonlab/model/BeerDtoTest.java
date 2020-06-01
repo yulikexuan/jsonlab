@@ -9,6 +9,8 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -26,24 +28,28 @@ class BeerDtoTest extends BaseTest {
         JSONObject jsonObj = new JSONObject(jsonBeer);
         String id = jsonObj.getString("beerId");
         String price = jsonObj.getString("price");
+        String localDate = jsonObj.getString("myLocalDate");
 
         // Then
         System.out.println(jsonBeer);
         assertThat(id).isEqualTo(this.id.toString());
         assertThat(price).isEqualTo(beerDto.getPrice().toString());
+        assertThat(localDate).doesNotContain("-");
     }
 
     @Test
     void test_Given_Beer_JSON_String_Then_Deserialize_To_BeerDto() throws JsonProcessingException {
 
         // Given
-        String jsonBeer = "{\"beerId\":\"fe85eda3-2688-4c8d-b85f-31f0c749090c\",\"beerName\":\"Heineken\",\"beerStyle\":\"Ale\",\"upc\":123123123123,\"price\":12.99,\"createdDate\":\"2020-05-30T08:31:19.068298-04:00\",\"lastUpdatedDate\":\"2020-05-30T08:31:19.068298-04:00\"}";
+        String jsonBeer = "{\"beerName\":\"Heineken\",\"beerStyle\":\"Ale\",\"upc\":123123123123,\"price\":\"12.99\",\"createdDate\":\"2020-06-01T08:39:38-0400\",\"lastUpdatedDate\":\"2020-06-01T08:39:38.7310088-04:00\",\"myLocalDate\":\"20200601\",\"beerId\":\"c73c319a-4304-4d16-ab39-2193719c3aaf\"}";
 
         // When
         BeerDto beerDto = this.objectMapper.readValue(jsonBeer, BeerDto.class);
+        LocalDate localDate = beerDto.getMyLocalDate();
 
         // Then
         System.out.println(beerDto);
+        assertThat(localDate).isNotNull();
     }
 
 }///:~

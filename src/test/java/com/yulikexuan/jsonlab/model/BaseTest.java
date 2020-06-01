@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -49,6 +50,7 @@ public class BaseTest {
                 .lastUpdatedDate(OffsetDateTime.now())
                 .price(price)
                 .upc(123123123123L)
+                .myLocalDate(LocalDate.now())
                 .build();
     }
 

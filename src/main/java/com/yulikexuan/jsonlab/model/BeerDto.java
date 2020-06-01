@@ -6,6 +6,7 @@ package com.yulikexuan.jsonlab.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -42,6 +44,10 @@ public class BeerDto {
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ", shape = JsonFormat.Shape.STRING)
     private OffsetDateTime createdDate;
+
     private OffsetDateTime lastUpdatedDate;
+
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate myLocalDate;
 
 }///:~
